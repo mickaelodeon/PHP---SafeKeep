@@ -3,95 +3,129 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
 
 :root {
-  --safekeep-primary: #4EC3F7;
-  --safekeep-secondary: #004A6E;
-  --safekeep-text-dark: #004A6E;
-  --safekeep-text-gray: #6B7280;
-  --safekeep-text-placeholder: #9CA3AF;
-  --safekeep-bg-input: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
+  --brand-primary: #4EC3F7; 
+  --brand-primary-hover: #16a8be; 
+  --brand-dark: #004A6E;   
+  --text-grey: #4B5563;
+  --text-light: #9CA3AF;       
+  --border-color: #ADAEBC;   
+  --background-color: #F8FAFC;
 }
 
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .page-background {
-  background-color: #f7fafc;
+  background-color: var(--background-color);
 }
 
+/* MODIFIED: Removed vertical centering to accommodate the header */
 .main-content {
-  padding: 4rem 1rem;
+  padding: 4rem 1rem; /* Added padding for space below header */
+  box-sizing: border-box;
 }
 
 .form-wrapper {
   width: 100%;
-  max-width: 24rem;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 26rem;
+  margin: 0 auto; /* This will now center the form horizontally */
 }
 
 .form-card {
   background-color: white;
-  border-radius: 1rem;
-  border: 1px solid var(--gray-200);
-  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
-  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
 }
 
 .form-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.form-logo-wrapper {
+  width: 64px;
+  height: 64px;
+  background-color: var(--brand-dark);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem auto;
+}
+
+.form-logo {
+  width: 20px;
+  height: auto;
 }
 
 .form-title {
-  font-size: 1.875rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  color: var(--safekeep-text-dark);
-  margin: 0 0 0.5rem 0;
+  color: var(--brand-dark);
+  margin: 0 0 0.25rem 0;
 }
 
 .form-subtitle {
   font-size: 1rem;
-  color: var(--safekeep-text-gray);
-  padding: 0 0.5rem;
+  color: var(--text-grey);
   margin: 0;
 }
 
-.login-form > * + * { margin-top: 1.5rem; }
-.form-group > * + * { margin-top: 0.5rem; }
-
-.form-label {
+.login-form {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--safekeep-text-dark);
+  flex-direction: column;
+  gap: 1.25rem;
 }
-
-.label-icon { width: 15px; height: 20px; }
-.button-icon { width: 18px; height: 18px; }
 
 .form-input {
   width: 100%;
   box-sizing: border-box;
-  height: 50px;
+  height: 56px;
   padding: 0 1rem;
   font-size: 1rem;
-  border: 1px solid var(--gray-200);
-  border-radius: 0.5rem;
-  background-color: var(--safekeep-bg-input);
-  color: var(--safekeep-text-dark);
+  border: 1px solid var(--border-color);
+  border-radius: 0.75rem;
+  background-color: white;
+  color: var(--brand-dark);
+  transition: border-color 150ms;
 }
 
-.form-input::placeholder { color: var(--safekeep-text-placeholder); }
+.form-input::placeholder {
+  color: var(--text-light);
+}
+
 .form-input:focus {
   outline: none;
-  border-color: transparent;
-  box-shadow: 0 0 0 2px var(--safekeep-primary);
+  border-color: var(--brand-primary);
+}
+
+.password-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-wrapper .form-input {
+  padding-right: 3.5rem;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  right: 1.25rem;
+  width: 20px;
+  height: 16px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 150ms;
+}
+
+.password-toggle-icon:hover {
+  opacity: 0.8;
 }
 
 .form-options {
@@ -105,19 +139,19 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  color: var(--safekeep-text-gray);
+  color: var(--text-grey);
 }
 
 .form-checkbox {
   width: 1rem;
   height: 1rem;
   border-radius: 0.25rem;
-  border: 1px solid var(--gray-200);
-  accent-color: var(--safekeep-primary);
+  border: 1px solid var(--border-color);
+  accent-color: var(--brand-primary);
 }
 
 .forgot-password-link {
-  color: var(--safekeep-primary);
+  color: var(--brand-dark);
   font-weight: 500;
   text-decoration: none;
 }
@@ -125,41 +159,17 @@ body {
   text-decoration: underline;
 }
 
-.password-input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+.submit-wrapper { margin-top: 1rem; }
 
-.password-input-wrapper .form-input {
-  padding-right: 3rem; /* Add space for the icon */
-}
-
-.password-toggle-icon {
-  position: absolute;
-  right: 1rem;
-  width: 20px;
-  height: 16px;
-  cursor: pointer;
-  opacity: 0.5;
-  transition: opacity 150ms;
-}
-
-.password-toggle-icon:hover {
-  opacity: 1;
-}
-
-.submit-wrapper { padding-top: 1rem; }
 .submit-button {
   width: 100%;
-  height: 3rem;
-  background-color: var(--safekeep-primary);
+  height: 56px;
+  background-color: var(--brand-primary);
   color: white;
   font-size: 1rem;
   font-weight: 600;
   border: none;
-  border-radius: 0.5rem;
-  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  border-radius: 0.75rem;
   transition: background-color 150ms;
   display: flex;
   align-items: center;
@@ -167,26 +177,29 @@ body {
   gap: 0.5rem;
   cursor: pointer;
 }
-.submit-button:hover { background-color: var(--safekeep-secondary); }
+
+.button-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.submit-button:hover {
+  background-color: var(--brand-primary-hover);
+}
 
 .form-footer {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--gray-100);
+  margin-top: 2.5rem;
   text-align: center;
-  color: var(--safekeep-text-gray);
+  color: var(--text-light);
+  font-size: 0.875rem;
 }
 
 .footer-link {
-  color: var(--safekeep-primary);
+  color: var(--brand-primary);
   font-weight: 500;
   text-decoration: none;
 }
+
 .footer-link:hover {
   text-decoration: underline;
-}
-
-@media (min-width: 640px) {
-  .form-wrapper { max-width: 28rem; }
-  .form-card { padding: 2rem; }
 }
