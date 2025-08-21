@@ -4,10 +4,64 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>SafeKeep - Email Authentication</title>
+<<<<<<< HEAD
     <link href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/auth.css">
+=======
+    <link
+      href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+    />
+    <style>
+      body {
+        background-color: #f8fafc;
+        font-family: "Segoe UI", sans-serif;
+      }
+      .card {
+        border-radius: 1rem;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+      .btn-custom {
+        background-color: #4ec3f7;
+        color: white;
+        border-radius: 0.5rem;
+      }
+      .btn-custom:hover {
+        background-color: #238ac6;
+      }
+      .otp-input {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        text-align: center;
+        border: 2px solid #ccc;
+        border-radius: 0.5rem;
+        margin: 0 5px;
+      }
+      .footer-note {
+        font-size: 0.875rem;
+        color: #6c757d;
+      }
+      .auth-header {
+        background: linear-gradient(to bottom, #2563eb, #4ec3f7);
+        border-radius: 1rem 1rem 0 0;
+        color: white;
+        padding: 2rem 1rem;
+      }
+      .link-custom {
+        color: #4ec3f7; /* Primary blue */
+        font-weight: 300;
+        text-decoration: none;
+      }
+    </style>
+>>>>>>> 9fd58a11da496fc04b5a7206ba90b3d510281822
   </head>
   <body class="page-background">
     <!-- Header Placeholder -->
@@ -15,7 +69,7 @@
 
     <!-- OTP Section -->
     <main
-      class="container d-flex flex-column min-vh-100 justify-content-center"
+      class="container d-flex flex-column min-vh-100 justify-content-center px-3 py-5"
     >
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-5">
@@ -24,14 +78,15 @@
             <div class="auth-header text-center">
               <h5 class="fw-bold mb-1">Email Authentication</h5>
               <p class="mb-0 small">
+                <b>Enter one-time password</b><br />
                 A one-time password has been sent to<br />
-                <span class="fw-semibold">gokapawaysirado@gmail.com</span>
+                <span class="fw-bold"><i>gokapawaysirado@gmail.com</i></span>
               </p>
             </div>
 
             <!-- Body -->
             <div class="card-body text-center">
-              <p class="mb-3">
+              <p class="mb-3" style="color: #00712d">
                 Enter the 4 digit code we sent you via email to continue.
               </p>
 
@@ -62,7 +117,7 @@
               <!-- Retry link -->
               <p class="small">
                 Not your email?/Didn’t receive the code?
-                <a href="#" class="text-primary">Try Again</a>
+                <a href="#" class="link-custom">Try Again</a>
               </p>
 
               <!-- Verify button -->
@@ -71,11 +126,16 @@
               </button>
 
               <!-- Security reminder -->
-              <div class="alert alert-light border small text-start">
-                <i class="bi bi-info-circle-fill text-primary"></i>
-                <strong> Security Reminder</strong><br />
-                Never share your OTP codes with anyone. We'll never ask for your
-                verification codes via phone or email.
+              <div
+                class="small text-start p-3 rounded"
+                style="background: #eff6ff; border: 1px solid #eff6ff"
+              >
+                <i class="bi bi-info-circle-fill" style="color: #2563eb"></i>
+                <strong style="color: #1e40af"> Security Reminder</strong><br />
+                <p style="color: #2563eb; margin: 0">
+                  Never share your OTP codes with anyone. We'll never ask for
+                  your verification codes via phone or email.
+                </p>
               </div>
             </div>
           </div>
