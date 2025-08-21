@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeKeep</title>
+    <link rel="icon" type="image/png" href="./assets/logo.png">
+    <link rel="stylesheet" href="header-start.css">
+    <link rel="stylesheet" href="register.css">
+</head>
+<body class="page-background body-register">
+
+    <!-- 1. Placeholder where the header will be loaded -->
+    <div id="header-placeholder"></div>
+
+    <!-- =========== MAIN CONTENT (REGISTRATION FORM) =========== -->
+    <main class="main-content">
+      <div class="form-wrapper">
+        <div class="form-card">
+          <!-- Form Header -->
+          <div class="form-header">
+            <div class="form-icon-wrapper">
+              <img src="./assets/form-header-icon.png" alt="" class="form-header-icon">
+            </div>
+            <h1 class="form-title">Create Account</h1>
+            <p class="form-subtitle">Join SafeKeep to secure your educational journey</p>
+          </div>
+          <!-- Form -->
+          <form class="registration-form">
+            <!-- Full Name -->
+            <div class="form-group">
+              <label class="form-label">
+                <img src="./assets/user-icon.png" alt="" class="label-icon">
+                Full Name
+              </label>
+              <input type="text" name="fullName" placeholder="Enter your full name" class="form-input"/>
+            </div>
+            <!-- Email Address -->
+            <div class="form-group">
+              <label class="form-label">
+                <img src="./assets/email-icon.png" alt="" class="label-icon">
+                Email Address
+              </label>
+              <input type="email" name="email" placeholder="Enter your email address" class="form-input"/>
+            </div>
+            <!-- Password -->
+            <div class="form-group">
+                <label class="form-label">
+                    <img src="./assets/password-icon.png" alt="" class="label-icon">
+                    Password
+                </label>
+              <input type="password" name="password" placeholder="Create a strong password" class="form-input"/>
+            </div>
+            <!-- Confirm Password -->
+            <div class="form-group">
+                <label class="form-label">
+                    <img src="./assets/password-icon.png" alt="" class="label-icon">
+                    Confirm Password
+                </label>
+              <input type="password" name="confirmPassword" placeholder="Confirm your password" class="form-input"/>
+            </div>
+            <!-- Role -->
+            <div class="form-group">
+              <label class="form-label">
+                <img src="./assets/role-icon.png" alt="" class="label-icon">
+                Role
+              </label>
+              <div class="select-wrapper">
+                <select name="role" class="form-select">
+                  <option value="">Select your role</option>
+                  <option value="student">Student</option>
+                  <option value="teacher">Teacher</option>
+                  <option value="administrator">Administrator</option>
+                </select>
+                <div class="select-arrow">
+                    <img src="./assets/dropdown-arrow.png" alt="" class="dropdown-arrow-icon">
+                </div>
+              </div>
+            </div>
+            <!-- Submit Button -->
+            <div class="submit-wrapper">
+              <button type="submit" class="submit-button">
+                <img src="./assets/create-account-icon.png" alt="" class="button-icon">
+                Create Account
+              </button>
+            </div>
+          </form>
+          <!-- Form Footer -->
+          <div class="form-footer">
+            <p>Already have an account? <a href="login.html" class="login-link">Login here</a></p>
+          </div>
+        </div>
+        <!-- Terms and Privacy -->
+        <div class="terms-policy">
+          <p>By creating an account, you agree to SafeKeep's Terms of Service and Privacy Policy</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- 2. JavaScript to fetch and insert the header -->
+    <script>
+      fetch('header-start.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header-placeholder').innerHTML = data;
+        })
+        .catch(error => {
+          console.error('Error loading the header:', error);
+        });
+    </script>
+
+</body>
+</html>

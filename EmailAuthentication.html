@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SafeKeep - Forgot Password</title>
+    <title>SafeKeep - Email Authentication</title>
     <link
       href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -30,14 +30,29 @@
       .btn-custom:hover {
         background-color: #238ac6;
       }
+      .otp-input {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+        text-align: center;
+        border: 2px solid #ccc;
+        border-radius: 0.5rem;
+        margin: 0 5px;
+      }
       .footer-note {
         font-size: 0.875rem;
         color: #6c757d;
       }
+      .auth-header {
+        background: linear-gradient(to bottom, #3ba9ff, #0096ff);
+        border-radius: 1rem 1rem 0 0;
+        color: white;
+        padding: 2rem 1rem;
+      }
     </style>
   </head>
   <body>
-    <!---Header ni siya guys ha-->>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
       <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="index.html">
@@ -83,60 +98,72 @@
         </div>
       </div>
     </nav>
-    <!--Diri kutob and header-->>
-    <!-- Reset Password Section -->
+
+    <!-- OTP Section -->
     <main
       class="container d-flex flex-column min-vh-100 justify-content-center"
     >
       <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-5">
-          <!-- Heading -->
-          <div class="text-center mb-4">
-            <h5 class="fw-semibold">Reset Your Password</h5>
-            <p class="text-muted small mb-0">
-              You will receive an email with a one-time password
-            </p>
-          </div>
+          <div class="card">
+            <!-- Header -->
+            <div class="auth-header text-center">
+              <h5 class="fw-bold mb-1">Email Authentication</h5>
+              <p class="mb-0 small">
+                A one-time password has been sent to<br />
+                <span class="fw-semibold">gokapawaysirado@gmail.com</span>
+              </p>
+            </div>
 
-          <!-- Form Card -->
-          <div class="card p-4">
-            <form>
-              <!-- Email Field -->
-              <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <div class="input-group">
-                  <span class="input-group-text"
-                    ><i class="bi bi-envelope"></i
-                  ></span>
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    placeholder="Enter your email address"
-                    required
-                    aria-describedby="emailHelp"
-                  />
-                </div>
+            <!-- Body -->
+            <div class="card-body text-center">
+              <p class="mb-3">
+                Enter the 4 digit code we sent you via email to continue.
+              </p>
+
+              <!-- OTP Inputs -->
+              <div class="d-flex justify-content-center mb-3">
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="otp-input form-control"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="otp-input form-control"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="otp-input form-control"
+                />
+                <input
+                  type="text"
+                  maxlength="1"
+                  class="otp-input form-control"
+                />
               </div>
 
-              <!-- Submit Button -->
-              <button type="submit" class="btn btn-custom w-100">
-                <i class="bi bi-send"></i> Send OTP
+              <!-- Retry link -->
+              <p class="small">
+                Not your email?/Didn’t receive the code?
+                <a href="#" class="text-primary">Try Again</a>
+              </p>
+
+              <!-- Verify button -->
+              <button type="submit" class="btn btn-custom w-100 mb-3">
+                <i class="bi bi-check2-circle"></i> Verify
               </button>
-            </form>
-          </div>
 
-          <!-- Back to Login -->
-          <div class="text-center mt-3">
-            <a href="login.html" class="text-decoration-none"
-              >&larr; Back to Login</a
-            >
-          </div>
-
-          <!-- Footer Note -->
-          <div class="text-center mt-3 footer-note">
-            <i class="bi bi-shield-lock"></i> Your data is protected with
-            enterprise-grade security
+              <!-- Security reminder -->
+              <div class="alert alert-light border small text-start">
+                <i class="bi bi-info-circle-fill text-primary"></i>
+                <strong> Security Reminder</strong><br />
+                Never share your OTP codes with anyone. We'll never ask for your
+                verification codes via phone or email.
+              </div>
+            </div>
           </div>
         </div>
       </div>
