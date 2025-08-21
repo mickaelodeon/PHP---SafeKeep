@@ -4,22 +4,61 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SafeKeep</title>
+    <link href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="./assets/logo.png">
-<<<<<<< HEAD
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/auth.css">
-=======
     
-
-    <link rel="stylesheet" href="header-start.css">
     <link rel="stylesheet" href="login.css">
->>>>>>> 9fd58a11da496fc04b5a7206ba90b3d510281822
 </head>
 
-<body class="page-background body-login">
+    <!---Header ni siya guys ha-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center" href="index.html">
+          <img
+            src="assets/safekeeplogo.png"
+            alt="SafeKeep Logo"
+            width="35"
+            height="35"
+            class="me-2"
+          />
+          <strong>SafeKeep</strong>
+        </a>
 
-    <!-- Placeholder for the header -->
-    <div id="header-placeholder"></div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div
+          class="collapse navbar-collapse justify-content-end"
+          id="navbarNav"
+        >
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-primary fw-bold" href="login.html"
+                >Login</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!--Diri kutob and header-->
 
     <main class="main-content">
       <div class="form-wrapper">
@@ -67,18 +106,6 @@
         </div>
       </div>
     </main>
-    
-    <!-- ADDED: Script to load the header -->
-    <script>
-      fetch('header-start.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('header-placeholder').innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Error loading the header:', error);
-        });
-    </script>
 
     <!-- Script for password toggle functionality -->
     <script>
