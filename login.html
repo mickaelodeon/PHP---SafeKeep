@@ -5,15 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SafeKeep</title>
     <link rel="icon" type="image/png" href="./assets/logo.png">
-<<<<<<< HEAD
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/auth.css">
-=======
-    
-
-    <link rel="stylesheet" href="header-start.css">
-    <link rel="stylesheet" href="login.css">
->>>>>>> 9fd58a11da496fc04b5a7206ba90b3d510281822
 </head>
 
 <body class="page-background body-login">
@@ -55,12 +48,6 @@
                   placeholder="Password"
                   class="form-input"
                 />
-                <img
-                  src="./assets/eye-off.png"
-                  id="toggle-password-icon"
-                  class="password-toggle-icon"
-                  alt="Show password"
-                />
               </div>
             </div>
 
@@ -95,40 +82,5 @@
       </div>
     </main>
     
-    <!-- ADDED: Script to load the header -->
-    <script>
-      fetch('header-start.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('header-placeholder').innerHTML = data;
-        })
-        .catch(error => {
-          console.error('Error loading the header:', error);
-        });
-    </script>
-
-    <!-- Script for password toggle functionality -->
-    <script>
-      const togglePasswordIcon = document.getElementById(
-        "toggle-password-icon"
-      );
-      const passwordInput = document.getElementById("password-input");
-
-      togglePasswordIcon.addEventListener("click", function () {
-        const type =
-          passwordInput.getAttribute("type") === "password"
-            ? "text"
-            : "password";
-        passwordInput.setAttribute("type", type);
-
-        if (type === "password") {
-          this.src = "./assets/eye-off.png";
-          this.alt = "Show password";
-        } else {
-          this.src = "./assets/eye-on.png";
-          this.alt = "Hide password";
-        }
-      });
-    </script>
   </body>
 </html>
