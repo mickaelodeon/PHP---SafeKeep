@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SafeKeep</title>
-    <link rel="icon" type="image/png" href="./assets/logo.png">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/auth.css">
-</head>
+    <link rel="icon" type="image/png" href="./assets/logo.png" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+  </head>
 
-<body class="page-background body-login">
-
+  <body class="page-background body-login">
     <!-- Placeholder for the header -->
     <div id="header-placeholder"></div>
 
     <main class="main-content">
       <div class="form-wrapper">
         <div class="form-card">
-          
           <div class="form-header">
             <div class="form-logo-wrapper">
-                <img src="./assets/logo.png" alt="SafeKeep Logo" class="form-logo">
+              <img
+                src="./assets/logo.png"
+                alt="SafeKeep Logo"
+                class="form-logo"
+              />
             </div>
             <h1 class="form-title">SafeKeep</h1>
             <p class="form-subtitle">Secure School Management System</p>
@@ -28,69 +30,97 @@
 
           <form class="login-form">
             <div class="form-group">
-              <input type="email" name="email" placeholder="Email Address" class="form-input"/>
+              <input
+                type="email"
+                name="email"
+                placeholder="Email Address"
+                class="form-input"
+              />
             </div>
 
             <div class="form-group">
               <div class="password-input-wrapper">
-                <input type="password" id="password-input" name="password" placeholder="Password" class="form-input"/>
-                <img src="./assets/eye-off.png" id="toggle-password-icon" class="password-toggle-icon" alt="Show password">
+                <input
+                  type="password"
+                  id="password-input"
+                  name="password"
+                  placeholder="Password"
+                  class="form-input"
+                />
+                <img
+                  src="./assets/eye-off.png"
+                  id="toggle-password-icon"
+                  class="password-toggle-icon"
+                  alt="Show password"
+                />
               </div>
             </div>
-            
+
             <div class="form-options">
-                <div class="remember-me">
-                    <input type="checkbox" id="rememberMe" name="rememberMe" class="form-checkbox">
-                    <label for="rememberMe">Remember me</label>
-                </div>
-                <a href="#" class="forgot-password-link">Forgot Password?</a>
+              <div class="remember-me">
+                <input
+                  type="checkbox"
+                  id="rememberMe"
+                  name="rememberMe"
+                  class="form-checkbox"
+                />
+                <label for="rememberMe">Remember me</label>
+              </div>
+              <a href="#" class="forgot-password-link">Forgot Password?</a>
             </div>
 
             <div class="submit-wrapper">
               <button type="submit" class="submit-button">
-                <img src="./assets/login-icon.png" alt="" class="button-icon">
+                <img src="./assets/login-icon.png" alt="" class="button-icon" />
                 Login
               </button>
             </div>
           </form>
 
           <div class="form-footer">
-            <p>Don't have an account? <a href="register.html" class="footer-link">Register here</a></p>
+            <p>
+              Don't have an account?
+              <a href="register.html" class="footer-link">Register here</a>
+            </p>
           </div>
         </div>
       </div>
     </main>
-    
+
     <!-- ADDED: Script to load the header -->
     <script>
-      fetch('header-start.html')
-        .then(response => response.text())
-        .then(data => {
-          document.getElementById('header-placeholder').innerHTML = data;
+      fetch("header-start.html")
+        .then((response) => response.text())
+        .then((data) => {
+          document.getElementById("header-placeholder").innerHTML = data;
         })
-        .catch(error => {
-          console.error('Error loading the header:', error);
+        .catch((error) => {
+          console.error("Error loading the header:", error);
         });
     </script>
 
     <!-- Script for password toggle functionality -->
     <script>
-        const togglePasswordIcon = document.getElementById('toggle-password-icon');
-        const passwordInput = document.getElementById('password-input');
+      const togglePasswordIcon = document.getElementById(
+        "toggle-password-icon"
+      );
+      const passwordInput = document.getElementById("password-input");
 
-        togglePasswordIcon.addEventListener('click', function () {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
+      togglePasswordIcon.addEventListener("click", function () {
+        const type =
+          passwordInput.getAttribute("type") === "password"
+            ? "text"
+            : "password";
+        passwordInput.setAttribute("type", type);
 
-            if (type === 'password') {
-                this.src = './assets/eye-off.png';
-                this.alt = 'Show password';
-            } else {
-                this.src = './assets/eye-on.png';
-                this.alt = 'Hide password';
-            }
-        });
+        if (type === "password") {
+          this.src = "./assets/eye-off.png";
+          this.alt = "Show password";
+        } else {
+          this.src = "./assets/eye-on.png";
+          this.alt = "Hide password";
+        }
+      });
     </script>
-
-</body>
+  </body>
 </html>
