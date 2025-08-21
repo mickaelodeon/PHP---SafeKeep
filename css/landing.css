@@ -1,0 +1,76 @@
+/* Styles specific to the landing page */
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #2b7de9, #00bcd4);
+  color: white;
+  padding: 90px 20px;
+  text-align: center;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+  margin-top: 15px;
+  opacity: 0.95;
+}
+
+.hero-section .btn {
+  background: linear-gradient(90deg, #2b7de9, #00bcd4);
+  border: none;
+  padding: 12px 28px;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  transition: 0.3s;
+}
+
+.hero-section .btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+/* Features Section */
+.features {
+  padding: 70px 20px;
+}
+
+.feature-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0px 6px 20px rgba(0,0,0,0.08);
+  transition: transform 0.25s ease-in-out, box-shadow 0.25s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0px 12px 25px rgba(0,0,0,0.12);
+}
+
+.feature-card .card-body {
+  text-align: center;
+  padding: 40px 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.feature-card .card-title {
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.feature-card .card-text {
+  margin-bottom: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
