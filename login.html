@@ -82,5 +82,53 @@
       </div>
     </main>
     
+    <script>
+        document.querySelector('.login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = this.querySelector('input[name="email"]').value;
+            const password = this.querySelector('input[name="password"]').value;
+            const submitBtn = this.querySelector('.submit-button');
+            
+            if (!email || !password) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Disable button and show loading
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span style="margin-right: 8px;">⏳</span>Logging in...';
+            
+            try {
+                const response = await fetch('api/login.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Store user info for dashboard
+                    localStorage.setItem('username', data.user.username);
+                    localStorage.setItem('userRole', data.user.role);
+                    
+                    // Redirect to dashboard
+                    window.location.href = 'dashboard.php';
+                } else {
+                    alert(data.error || 'Login failed');
+                }
+            } catch (error) {
+                console.error('Login error:', error);
+                alert('Network error. Please try again.');
+            } finally {
+                // Reset button
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<img src="./assets/login-icon.png" alt="" class="button-icon" />Login';
+            }
+        });
+    </script>
   </body>
 </html>
