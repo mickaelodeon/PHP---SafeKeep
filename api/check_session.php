@@ -5,12 +5,15 @@ require_once '../includes/session.php';
 header('Content-Type: application/json');
 
 try {
-    if (isset($_SESSION['user_id'])) {
+    // Ensure session is started
+    SessionManager::startSession();
+    
+    if (SessionManager::isLoggedIn() && SessionManager::getUserId()) {
         $database = new Database();
         $db = $database->getConnection();
         
         $stmt = $db->prepare("SELECT id, username, email, role FROM users WHERE id = ?");
-        $stmt->execute([$_SESSION['user_id']]);
+        $stmt->execute([SessionManager::getUserId()]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
         
         if ($user) {
@@ -20,7 +23,7 @@ try {
             ]);
         } else {
             // User not found in database, destroy session
-            session_destroy();
+            SessionManager::logout();
             echo json_encode(['success' => false, 'error' => 'User not found']);
         }
     } else {

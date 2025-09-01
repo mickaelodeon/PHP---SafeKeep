@@ -8,6 +8,10 @@ class SessionManager {
     
     public static function startSession() {
         if (session_status() == PHP_SESSION_NONE) {
+            // Configure session settings
+            ini_set('session.gc_maxlifetime', 3600); // 1 hour
+            ini_set('session.cookie_lifetime', 3600); // 1 hour
+            session_set_cookie_params(3600, '/'); // 1 hour, available across entire site
             session_start();
         }
     }
@@ -52,6 +56,10 @@ class SessionManager {
     public static function getUserRole() {
         self::startSession();
         return isset($_SESSION['role']) ? $_SESSION['role'] : null;
+    }
+
+    public static function getRole() {
+        return self::getUserRole();
     }
 
     public static function isAdmin() {

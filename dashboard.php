@@ -1,3 +1,21 @@
+<?php
+require_once 'includes/session.php';
+
+// Check if user is logged in
+if (!SessionManager::isLoggedIn()) {
+    header('Location: login.html');
+    exit();
+}
+
+$username = SessionManager::getUsername();
+$role = SessionManager::getUserRole();
+
+// Redirect admins to their admin dashboard
+if ($role === 'admin') {
+    header('Location: admin.php');
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +42,7 @@
 
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <ul class="navbar-nav">
+                    <!-- Student Navigation Only -->
                     <li class="nav-item">
                         <a class="nav-link active" href="dashboard.php">Dashboard</a>
                     </li>
@@ -35,11 +54,10 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> <span id="username">User</span>
+                            <i class="bi bi-person-circle"></i> <span id="username"><?= htmlspecialchars($username) ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="profile.php"><i class="bi bi-person"></i> Profile</a></li>
-                            <li id="adminMenuItem" style="display: none;"><a class="dropdown-item" href="admin.php"><i class="bi bi-shield-check"></i> Admin Panel</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                         </ul>

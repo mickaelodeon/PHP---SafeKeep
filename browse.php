@@ -1,3 +1,11 @@
+<?php
+require_once 'includes/session.php';
+
+// Check user authentication and role
+$isLoggedIn = SessionManager::isLoggedIn();
+$username = $isLoggedIn ? SessionManager::getUsername() : null;
+$userRole = $isLoggedIn ? SessionManager::getUserRole() : null;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,56 +16,94 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/auth.css">
+    <style>
+        /* Modern UI styling matching admin.php */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --shadow-light: 0 2px 15px rgba(0,0,0,0.1);
+            --border-radius: 12px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: var(--primary-gradient) !important;
+            box-shadow: var(--shadow-light);
+            border: none;
+        }
+
+        .navbar-brand img {
+            filter: brightness(1.2);
+        }
+
+        .card {
+            border: none;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="assets/safekeeplogo.png" alt="SafeKeep Logo" width="35" height="35" class="me-2">
-                <strong>SafeKeep</strong>
-            </a>
-
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="browse.php">Browse Items</a>
-                    </li>
-                    <li class="nav-item" id="messagesNavItem" style="display: none;">
-                        <a class="nav-link" href="messages.php">Messages</a>
-                    </li>
-                    <li class="nav-item" id="dashboardNavItem" style="display: none;">
-                        <a class="nav-link" href="dashboard.php">Dashboard</a>
-                    </li>
-                    <li class="nav-item" id="loginNavItem">
-                        <a class="nav-link" href="login.html">Login</a>
-                    </li>
-                    <li class="nav-item" id="registerNavItem">
-                        <a class="nav-link" href="register.html">Register</a>
-                    </li>
-                    <li class="nav-item dropdown" id="userDropdown" style="display: none;">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle"></i> <span id="username">User</span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
-                            <li><a class="dropdown-item" href="messages.php"><i class="bi bi-chat-dots"></i> Messages</a></li>
-                            <li id="adminMenuItem" style="display: none;"><a class="dropdown-item" href="admin.php"><i class="bi bi-shield-check"></i> Admin Panel</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
-                        </ul>
-                    </li>
-                </ul>
+    <!-- Navigation - Role-based design matching admin.php -->
+    <?php if ($isLoggedIn && $userRole === 'admin'): ?>
+        <!-- Admin Navigation (matches admin.php exactly) -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="admin.php">
+                    <img src="assets/safekeeplogo.png" alt="SafeKeep" height="30" class="me-2">
+                    SafeKeep Admin
+                </a>
+                <div class="navbar-nav ms-auto d-flex flex-row">
+                    <a class="nav-link me-3" href="admin.php">Admin Panel</a>
+                    <a class="nav-link me-3 active" href="browse.php">Browse Items</a>
+                    <span class="nav-link me-3">Welcome, <?php echo htmlspecialchars($username); ?></span>
+                    <a class="nav-link" href="api/logout.php">Logout</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    <?php elseif ($isLoggedIn && $userRole === 'student'): ?>
+        <!-- Student Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
+                    <img src="assets/safekeeplogo.png" alt="SafeKeep" height="30" class="me-2">
+                    SafeKeep
+                </a>
+                <div class="navbar-nav ms-auto d-flex flex-row">
+                    <a class="nav-link me-3" href="dashboard.php">Dashboard</a>
+                    <a class="nav-link me-3 active" href="browse.php">Browse Items</a>
+                    <a class="nav-link me-3" href="messages.php">Messages</a>
+                    <span class="nav-link me-3">Welcome, <?php echo htmlspecialchars($username); ?></span>
+                    <a class="nav-link" href="api/logout.php">Logout</a>
+                </div>
+            </div>
+        </nav>
+    <?php else: ?>
+        <!-- Guest Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center" href="index.html">
+                    <img src="assets/safekeeplogo.png" alt="SafeKeep" height="30" class="me-2">
+                    SafeKeep
+                </a>
+                <div class="navbar-nav ms-auto d-flex flex-row">
+                    <a class="nav-link me-3" href="index.html">Home</a>
+                    <a class="nav-link me-3 active" href="browse.php">Browse Items</a>
+                    <a class="nav-link me-3" href="login.html">Login</a>
+                    <a class="nav-link me-3" href="register.html">Register</a>
+                </div>
+            </div>
+        </nav>
+    <?php endif; ?>
 
     <div class="container mt-4">
         <!-- Page Header -->
@@ -197,8 +243,26 @@
 
         // Load items on page load
         document.addEventListener('DOMContentLoaded', function() {
-            checkAuth();
             loadItems();
+            
+            // Add logout functionality for authenticated users
+            <?php if ($isLoggedIn): ?>
+            const logoutLinks = document.querySelectorAll('a[href="api/logout.php"]');
+            logoutLinks.forEach(link => {
+                link.addEventListener('click', async function(e) {
+                    e.preventDefault();
+                    try {
+                        const response = await fetch('api/logout.php', { method: 'POST' });
+                        const data = await response.json();
+                        if (data.success) {
+                            window.location.href = 'login.html';
+                        }
+                    } catch (error) {
+                        console.error('Logout error:', error);
+                    }
+                });
+            });
+            <?php endif; ?>
             
             // Search form submission
             document.getElementById('searchForm').addEventListener('submit', function(e) {
@@ -221,33 +285,6 @@
                 openContactModal();
             });
         });
-
-        // Check authentication status
-        async function checkAuth() {
-            try {
-                const response = await fetch('api/check_session.php');
-                const data = await response.json();
-                
-                if (data.success && data.user) {
-                    // User is logged in
-                    document.getElementById('loginNavItem').style.display = 'none';
-                    document.getElementById('registerNavItem').style.display = 'none';
-                    document.getElementById('userDropdown').style.display = 'block';
-                    document.getElementById('username').textContent = data.user.username;
-                    
-                    if (data.user.role === 'admin') {
-                        document.getElementById('adminMenuItem').style.display = 'block';
-                    }
-                } else {
-                    // User not logged in
-                    document.getElementById('loginNavItem').style.display = 'block';
-                    document.getElementById('registerNavItem').style.display = 'block';
-                    document.getElementById('userDropdown').style.display = 'none';
-                }
-            } catch (error) {
-                console.error('Auth check error:', error);
-            }
-        }
 
         // Load items with filters
         async function loadItems() {
@@ -518,20 +555,6 @@
                     window.location.href = 'login.html';
                 });
         }
-
-        // Logout functionality
-        document.getElementById('logoutBtn')?.addEventListener('click', async function(e) {
-            e.preventDefault();
-            try {
-                const response = await fetch('api/logout.php', { method: 'POST' });
-                const data = await response.json();
-                if (data.success) {
-                    window.location.href = 'login.html';
-                }
-            } catch (error) {
-                console.error('Logout error:', error);
-            }
-        });
     </script>
 </body>
 </html>
