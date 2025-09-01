@@ -4,13 +4,10 @@ require_once '../includes/session.php';
 
 header('Content-Type: application/json');
 
-// Start session
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
+// Start session and check if user is logged in
+SessionManager::startSession();
 
-// Check if user is logged in
-if (!isset($_SESSION['user_id'])) {
+if (!SessionManager::isLoggedIn()) {
     echo json_encode(['success' => false, 'error' => 'Not logged in']);
     exit;
 }
@@ -41,7 +38,7 @@ if (empty($message)) {
 try {
     $database = new Database();
     $db = $database->getConnection();
-    $user_id = $_SESSION['user_id'];
+    $user_id = SessionManager::getUserId();
     
     // Get item details and owner
     $item_query = "

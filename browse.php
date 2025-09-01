@@ -14,40 +14,97 @@ $userRole = $isLoggedIn ? SessionManager::getUserRole() : null;
     <title>Browse Items - SafeKeep</title>
     <link href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/auth.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Modern UI styling matching admin.php */
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --shadow-light: 0 2px 15px rgba(0,0,0,0.1);
-            --border-radius: 12px;
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --warning-gradient: linear-gradient(135deg, #fdbb2d 0%, #ff7b00 100%);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.2);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: var(--text-primary);
         }
 
+        /* Glass Morphism Navigation */
         .navbar {
-            background: var(--primary-gradient) !important;
-            box-shadow: var(--shadow-light);
-            border: none;
+            background: var(--glass-bg) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
         }
 
-        .navbar-brand img {
-            filter: brightness(1.2);
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--text-primary) !important;
         }
 
-        .card {
-            border: none;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-light);
+        .nav-link {
+            color: var(--text-primary) !important;
+            font-weight: 500;
             transition: all 0.3s ease;
+            position: relative;
+            border-radius: 20px;
+            padding: 8px 16px !important;
+            margin: 0 4px;
+        }
+
+        .nav-link:hover {
+            color: #667eea !important;
+            transform: translateY(-1px);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .nav-link.active {
+            background: var(--primary-gradient) !important;
+            color: white !important;
+        }
+
+        /* Main Container */
+        .main-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            margin: 20px 0;
+            padding: 32px;
+        }
+
+        /* Glass Cards */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
+            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-3px);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+        }
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
     </style>

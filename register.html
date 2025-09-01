@@ -75,14 +75,14 @@
             <p class="form-subtitle">Join SafeKeep to secure your educational journey</p>
           </div>
           <!-- Form -->
-          <form class="registration-form">
-            <!-- Full Name -->
+          <form class="registration-form" id="registerForm">
+            <!-- Username -->
             <div class="form-group">
               <label class="form-label">
                 <img src="./assets/user-icon.png" alt="" class="label-icon">
-                Full Name
+                Username
               </label>
-              <input type="text" name="fullName" placeholder="Enter your full name" class="form-input"/>
+              <input type="text" name="username" placeholder="Enter your username" class="form-input" required/>
             </div>
             <!-- Email Address -->
             <div class="form-group">
@@ -90,7 +90,7 @@
                 <img src="./assets/email-icon.png" alt="" class="label-icon">
                 Email Address
               </label>
-              <input type="email" name="email" placeholder="Enter your email address" class="form-input"/>
+              <input type="email" name="email" placeholder="Enter your email address" class="form-input" required/>
             </div>
             <!-- Password -->
             <div class="form-group">
@@ -98,7 +98,7 @@
                     <img src="./assets/password-icon.png" alt="" class="label-icon">
                     Password
                 </label>
-              <input type="password" name="password" placeholder="Create a strong password" class="form-input"/>
+              <input type="password" name="password" placeholder="Create a strong password" class="form-input" required/>
             </div>
             <!-- Confirm Password -->
             <div class="form-group">
@@ -106,7 +106,7 @@
                     <img src="./assets/password-icon.png" alt="" class="label-icon">
                     Confirm Password
                 </label>
-              <input type="password" name="confirmPassword" placeholder="Confirm your password" class="form-input"/>
+              <input type="password" name="confirmPassword" placeholder="Confirm your password" class="form-input" required/>
             </div>
             <!-- Role -->
             <div class="form-group">
@@ -115,11 +115,11 @@
                 Role
               </label>
               <div class="select-wrapper">
-                <select name="role" class="form-select">
+                <select name="role" class="form-select" required>
                   <option value="">Select your role</option>
                   <option value="student">Student</option>
-                  <option value="teacher">Teacher</option>
-                  <option value="administrator">Administrator</option>
+                  <option value="staff">Staff</option>
+                  <option value="admin">Administrator</option>
                 </select>
               </div>
             </div>
@@ -142,6 +142,69 @@
         </div>
       </div>
     </main>
+
+    <script src="assets/bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const data = {
+                username: formData.get('username'),
+                email: formData.get('email'),
+                password: formData.get('password'),
+                confirmPassword: formData.get('confirmPassword'),
+                role: formData.get('role')
+            };
+            
+            // Validate form
+            if (!data.username || !data.email || !data.password || !data.confirmPassword || !data.role) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            if (data.password !== data.confirmPassword) {
+                alert('Passwords do not match.');
+                return;
+            }
+            
+            if (data.password.length < 6) {
+                alert('Password must be at least 6 characters long.');
+                return;
+            }
+            
+            // Submit registration
+            try {
+                const button = this.querySelector('button[type="submit"]');
+                button.disabled = true;
+                button.textContent = 'Creating Account...';
+                
+                const response = await fetch('api/register.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert('Registration successful! You can now login.');
+                    window.location.href = 'login.html';
+                } else {
+                    alert(result.error || 'Registration failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Registration error:', error);
+                alert('Network error. Please check your connection and try again.');
+            } finally {
+                const button = this.querySelector('button[type="submit"]');
+                button.disabled = false;
+                button.innerHTML = '<img src="./assets/create-account-icon.png" alt="" class="button-icon">Create Account';
+            }
+        });
+    </script>
 
 </body>
 </html>

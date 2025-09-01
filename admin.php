@@ -16,38 +16,96 @@ $username = SessionManager::getUsername();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - SafeKeep</title>
     <link href="assets/bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Modern UI Enhancements */
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-            --warning-gradient: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --warning-gradient: linear-gradient(135deg, #fdbb2d 0%, #ff7b00 100%);
             --danger-gradient: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%);
-            --shadow-light: 0 2px 15px rgba(0,0,0,0.1);
-            --shadow-hover: 0 8px 25px rgba(0,0,0,0.15);
-            --border-radius: 12px;
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow-soft: 0 8px 32px rgba(31, 38, 135, 0.37);
+            --shadow-hover: 0 15px 35px rgba(31, 38, 135, 0.2);
+            --text-primary: #2d3748;
+            --text-secondary: #718096;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
+            color: var(--text-primary);
         }
 
+        /* Glass Morphism Navigation */
         .navbar {
-            background: var(--primary-gradient) !important;
-            box-shadow: var(--shadow-light);
-            border: none;
+            background: var(--glass-bg) !important;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
         }
 
-        .card {
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--text-primary) !important;
+        }
+
+        .nav-link {
+            color: var(--text-primary) !important;
+            font-weight: 500;
             transition: all 0.3s ease;
-            border: none;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-light);
-            backdrop-filter: blur(10px);
-            background: rgba(255, 255, 255, 0.95);
+            position: relative;
+            border-radius: 20px;
+            padding: 8px 16px !important;
+            margin: 0 4px;
+        }
+
+        .nav-link:hover {
+            color: #667eea !important;
+            transform: translateY(-1px);
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .nav-link.active {
+            background: var(--primary-gradient) !important;
+            color: white !important;
+        }
+
+        /* Main Container */
+        .main-container {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .main-container:hover {
+            box-shadow: var(--shadow-hover);
+        }
+
+        /* Glass Cards */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
         }
 
         .card:hover {
@@ -55,9 +113,15 @@ $username = SessionManager::getUsername();
             box-shadow: var(--shadow-hover);
         }
 
+        /* Stats Cards */
         .stats-card {
             background: var(--primary-gradient);
             color: white;
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
@@ -69,35 +133,62 @@ $username = SessionManager::getUsername();
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
             transform: translateX(-100%);
             transition: transform 0.6s ease;
+        }
+
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
         }
 
         .stats-card:hover::before {
             transform: translateX(100%);
         }
 
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .stats-label {
+            font-size: 1rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Navigation Tabs */
         .nav-tabs {
             border: none;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: var(--border-radius) var(--border-radius) 0 0;
-            padding: 10px;
+            background: var(--glass-bg);
+            border-radius: 20px 20px 0 0;
+            padding: 16px 16px 0;
+            backdrop-filter: blur(20px);
         }
 
         .nav-tabs .nav-link {
             border: none;
-            border-radius: var(--border-radius);
-            margin-right: 5px;
-            color: #6c757d;
+            border-radius: 16px;
+            margin-right: 8px;
+            color: var(--text-secondary);
             font-weight: 500;
             transition: all 0.3s ease;
+            padding: 12px 24px;
+        }
+
+        .nav-tabs .nav-link:hover {
+            background: rgba(102, 126, 234, 0.1);
+            color: #667eea;
         }
 
         .nav-tabs .nav-link.active {
             background: var(--primary-gradient);
             color: white;
-            box-shadow: var(--shadow-light);
+            box-shadow: var(--shadow-soft);
+        }
         }
 
         .table {
@@ -479,6 +570,9 @@ $username = SessionManager::getUsername();
                                                 <button class="btn btn-success btn-sm flex-fill" onclick="approveItem(${item.id})" title="Approve Item">
                                                     ✓ Approve
                                                 </button>
+                                                <button class="btn btn-warning btn-sm flex-fill" onclick="rejectItem(${item.id})" title="Reject Item">
+                                                    ✗ Reject
+                                                </button>
                                                 <button class="btn btn-outline-primary btn-sm" onclick="viewItemDetails(${item.id})" title="View Details">
                                                     👁 Details
                                                 </button>
@@ -581,6 +675,9 @@ $username = SessionManager::getUsername();
                                             <button class="btn btn-success" onclick="approveItem(${item.id}); bootstrap.Modal.getInstance(document.getElementById('itemModal')).hide();">
                                                 ✅ Approve This Item
                                             </button>
+                                            <button class="btn btn-warning" onclick="rejectItem(${item.id}); bootstrap.Modal.getInstance(document.getElementById('itemModal')).hide();">
+                                                ❌ Reject This Item
+                                            </button>
                                         </div>
                                     ` : ''}
                                 </div>
@@ -610,7 +707,10 @@ $username = SessionManager::getUsername();
                 const response = await fetch('api/admin_approve.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ item_id: itemId })
+                    body: JSON.stringify({ 
+                        item_id: itemId,
+                        action: 'approve'
+                    })
                 });
                 
                 const data = await response.json();
@@ -621,11 +721,39 @@ $username = SessionManager::getUsername();
                     loadItems();
                     loadPendingItems();
                 } else {
-                    showAlert('danger', data.message || 'Failed to approve item');
+                    showAlert('danger', data.error || data.message || 'Failed to approve item');
                 }
             } catch (error) {
                 console.error('Error approving item:', error);
                 showAlert('danger', 'Error approving item');
+            }
+        }
+
+        // Reject item
+        async function rejectItem(itemId) {
+            try {
+                const response = await fetch('api/admin_approve.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ 
+                        item_id: itemId,
+                        action: 'reject'
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('warning', 'Item rejected successfully');
+                    loadStats();
+                    loadItems();
+                    loadPendingItems();
+                } else {
+                    showAlert('danger', data.error || data.message || 'Failed to reject item');
+                }
+            } catch (error) {
+                console.error('Error rejecting item:', error);
+                showAlert('danger', 'Error rejecting item');
             }
         }
 
