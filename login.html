@@ -115,8 +115,12 @@
                     localStorage.setItem('username', data.user.username);
                     localStorage.setItem('userRole', data.user.role);
                     
-                    // Redirect to dashboard
-                    window.location.href = 'dashboard.php';
+                    // Redirect based on user role
+                    if (data.user.role === 'admin') {
+                        window.location.href = 'admin.php';
+                    } else {
+                        window.location.href = 'dashboard.php';
+                    }
                 } else {
                     alert(data.error || 'Login failed');
                 }

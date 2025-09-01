@@ -30,6 +30,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="browse.php">Browse Items</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="messages.php">Messages</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle"></i> <span id="username">User</span>

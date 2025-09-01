@@ -30,11 +30,29 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="browse.php">Browse Items</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="messagesNavItem" style="display: none;">
+                        <a class="nav-link" href="messages.php">Messages</a>
+                    </li>
+                    <li class="nav-item" id="dashboardNavItem" style="display: none;">
+                        <a class="nav-link" href="dashboard.php">Dashboard</a>
+                    </li>
+                    <li class="nav-item" id="loginNavItem">
                         <a class="nav-link" href="login.html">Login</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" id="registerNavItem">
                         <a class="nav-link" href="register.html">Register</a>
+                    </li>
+                    <li class="nav-item dropdown" id="userDropdown" style="display: none;">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-person-circle"></i> <span id="username">User</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
+                            <li><a class="dropdown-item" href="messages.php"><i class="bi bi-chat-dots"></i> Messages</a></li>
+                            <li id="adminMenuItem" style="display: none;"><a class="dropdown-item" href="admin.php"><i class="bi bi-shield-check"></i> Admin Panel</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -179,6 +197,7 @@
 
         // Load items on page load
         document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
             loadItems();
             
             // Search form submission
@@ -196,7 +215,39 @@
             document.getElementById('listView').addEventListener('click', function() {
                 setView('list');
             });
+            
+            // Contact owner button
+            document.getElementById('contactOwnerBtn').addEventListener('click', function() {
+                openContactModal();
+            });
         });
+
+        // Check authentication status
+        async function checkAuth() {
+            try {
+                const response = await fetch('api/check_session.php');
+                const data = await response.json();
+                
+                if (data.success && data.user) {
+                    // User is logged in
+                    document.getElementById('loginNavItem').style.display = 'none';
+                    document.getElementById('registerNavItem').style.display = 'none';
+                    document.getElementById('userDropdown').style.display = 'block';
+                    document.getElementById('username').textContent = data.user.username;
+                    
+                    if (data.user.role === 'admin') {
+                        document.getElementById('adminMenuItem').style.display = 'block';
+                    }
+                } else {
+                    // User not logged in
+                    document.getElementById('loginNavItem').style.display = 'block';
+                    document.getElementById('registerNavItem').style.display = 'block';
+                    document.getElementById('userDropdown').style.display = 'none';
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+            }
+        }
 
         // Load items with filters
         async function loadItems() {
@@ -444,10 +495,42 @@
         }
 
         // Contact owner functionality
-        document.getElementById('contactOwnerBtn').addEventListener('click', function() {
-            const itemId = this.getAttribute('data-item-id');
-            // This would open a contact form or redirect to login if not logged in
-            alert('Contact functionality would be implemented here. Please login to contact the owner.');
+        function openContactModal() {
+            // Check if user is logged in first
+            fetch('api/check_session.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (!data.success) {
+                        alert('Please login to contact the item owner.');
+                        window.location.href = 'login.html';
+                        return;
+                    }
+                    
+                    const itemId = document.getElementById('contactOwnerBtn').getAttribute('data-item-id');
+                    if (itemId) {
+                        // Redirect to messages page with contact modal
+                        window.location.href = `messages.php?contact=${itemId}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Auth check error:', error);
+                    alert('Please login to contact the item owner.');
+                    window.location.href = 'login.html';
+                });
+        }
+
+        // Logout functionality
+        document.getElementById('logoutBtn')?.addEventListener('click', async function(e) {
+            e.preventDefault();
+            try {
+                const response = await fetch('api/logout.php', { method: 'POST' });
+                const data = await response.json();
+                if (data.success) {
+                    window.location.href = 'login.html';
+                }
+            } catch (error) {
+                console.error('Logout error:', error);
+            }
         });
     </script>
 </body>

@@ -32,8 +32,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     
                     SessionManager::login($user_data);
                     
-                    // Redirect to dashboard
-                    header('Location: dashboard.php');
+                    // Redirect based on user role
+                    if ($user->role === 'admin') {
+                        header('Location: admin.php');
+                    } else {
+                        header('Location: dashboard.php');
+                    }
                     exit();
                 } else {
                     $message = '<div class="alert alert-danger">Invalid email or password</div>';

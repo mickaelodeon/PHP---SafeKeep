@@ -312,6 +312,11 @@
         async function loadStatistics() {
             try {
                 const response = await fetch('api/admin_stats.php');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
                 
                 if (data.success) {
@@ -320,11 +325,23 @@
                     document.getElementById('usersCount').textContent = data.stats.users;
                     document.getElementById('totalItemsCount').textContent = data.stats.total_items;
                 } else {
-                    showAlert('danger', 'Failed to load statistics');
+                    showAlert('danger', `Failed to load statistics: ${data.error || 'Unknown error'}`);
+                    console.error('API Error:', data);
                 }
             } catch (error) {
                 console.error('Error loading statistics:', error);
-                showAlert('danger', 'Network error loading statistics');
+                showAlert('danger', `Network error loading statistics: ${error.message}`);
+                
+                // Try to load test stats to check if it's an auth issue
+                try {
+                    const testResponse = await fetch('api/test_stats.php');
+                    const testData = await testResponse.json();
+                    if (testData.success) {
+                        showAlert('warning', 'Database works, but admin authentication failed. Please log in as admin.');
+                    }
+                } catch (testError) {
+                    showAlert('danger', 'Database connection issue');
+                }
             }
         }
 

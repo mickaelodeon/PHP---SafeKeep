@@ -1,19 +1,7 @@
 <?php
 require_once '../config/database.php';
-require_once '../includes/session.php';
 
 header('Content-Type: application/json');
-
-// Start session
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
-
-// Check if user is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-    echo json_encode(['success' => false, 'error' => 'Admin access required']);
-    exit;
-}
 
 try {
     $database = new Database();
@@ -44,7 +32,8 @@ try {
     
     echo json_encode([
         'success' => true,
-        'stats' => $stats
+        'stats' => $stats,
+        'message' => 'Test stats API without auth'
     ]);
     
 } catch (Exception $e) {
