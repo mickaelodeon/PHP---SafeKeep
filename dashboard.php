@@ -36,6 +36,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="profile.php"><i class="bi bi-person"></i> Profile</a></li>
+                            <li id="adminMenuItem" style="display: none;"><a class="dropdown-item" href="admin.php"><i class="bi bi-shield-check"></i> Admin Panel</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="#" id="logoutBtn"><i class="bi bi-box-arrow-right"></i> Logout</a></li>
                         </ul>
@@ -194,9 +195,28 @@
     <script>
         // Check if user is logged in
         async function checkAuth() {
-            // This should be replaced with actual session check
-            const username = localStorage.getItem('username') || 'User';
-            document.getElementById('username').textContent = username;
+            try {
+                // Check session and get user data
+                const response = await fetch('api/check_session.php');
+                const data = await response.json();
+                
+                if (data.success && data.user) {
+                    document.getElementById('username').textContent = data.user.username;
+                    
+                    // Show admin menu if user is admin
+                    if (data.user.role === 'admin') {
+                        document.getElementById('adminMenuItem').style.display = 'block';
+                    }
+                } else {
+                    // Fallback to localStorage for now
+                    const username = localStorage.getItem('username') || 'User';
+                    document.getElementById('username').textContent = username;
+                }
+            } catch (error) {
+                console.error('Auth check error:', error);
+                const username = localStorage.getItem('username') || 'User';
+                document.getElementById('username').textContent = username;
+            }
         }
 
         // Set item type (lost/found)
